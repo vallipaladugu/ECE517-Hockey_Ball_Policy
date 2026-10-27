@@ -1,0 +1,32 @@
+<mujoco model="hockey">
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".1 .2 .3" rgb2=".2 .3 .4" width="300" height="300" mark="none"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+  </asset>
+
+  <worldbody>
+
+    <geom name="ground" type="plane" pos="0 0 0" size="1 1 0.1" material="grid"/>
+
+    <body name="player" pos="0 -0.5 0.1">
+      <geom type="cylinder" size="0.05 0.1" rgba="0 0 1 0.5" name="playergeom"/>
+      <joint name="player_x" type="slide" axis="1 0 0"/>
+      <joint name="player_y" type="slide" axis="0 1 0"/>
+    </body>
+
+    <body name="puck" pos="0 0 0.03">
+      <freejoint name="puck_joint"/>  <geom name="puckgeom" type="sphere" size="0.06" rgba="1 0 0 1" mass=".01"/>
+    </body>
+      
+    <body name="goal" pos="0 0.925 0.05">
+      <freejoint name="goal_joint"/>
+      <geom type="box" size="0.1 0.05 0.05" rgba="0 1 0 0.2" mass="10" name="goalgeom"/>
+    </body>
+      <camera name="topdown" pos="0 0 3" euler="-1.57 0 0" mode="fixed"/>
+  </worldbody>
+
+  <actuator>
+    <motor name="player_x_motor" joint="player_x" ctrlrange="-50 50"/>
+    <motor name="player_y_motor" joint="player_y" ctrlrange="-50 50"/>
+  </actuator>
+</mujoco>
